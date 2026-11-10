@@ -154,7 +154,23 @@ function showToast(message) {
   }, 2800);
 }
 
-// Add toast animation style
+// ---- Discord banner ----
+(function() {
+  const banner = document.getElementById('discordBanner');
+  const closeBtn = document.getElementById('discordBannerClose');
+  if (!banner) return;
+
+  // Don't show if already dismissed this session
+  if (sessionStorage.getItem('discord_banner_closed')) return;
+
+  // Show after 3 seconds
+  setTimeout(() => banner.classList.add('show'), 3000);
+
+  closeBtn.addEventListener('click', () => {
+    banner.classList.add('hide');
+    sessionStorage.setItem('discord_banner_closed', '1');
+  });
+})();
 const style = document.createElement('style');
 style.textContent = `
   @keyframes slideInToast {
@@ -163,3 +179,5 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+// Add toast animation style
