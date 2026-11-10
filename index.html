@@ -143,8 +143,7 @@
           </div>
           <span class="code-filename">memory_reader.cpp</span>
         </div>
-        <pre class="code-body"><code><span class="c-comment">// Y8X Source — Memory Reader</span>
-<span class="c-keyword">#include</span> <span class="c-str">&lt;Windows.h&gt;</span>
+        <pre class="code-body"><code><span class="c-keyword">#include</span> <span class="c-str">&lt;Windows.h&gt;</span>
 <span class="c-keyword">#include</span> <span class="c-str">&lt;iostream&gt;</span>
 
 <span class="c-keyword">template</span>&lt;<span class="c-keyword">typename</span> <span class="c-var">T</span>&gt;
@@ -156,10 +155,9 @@
   <span class="c-keyword">return</span> <span class="c-var">val</span>;
 }
 
-<span class="c-comment">// Lire un float à l'adresse 0x1A2B3C</span>
 <span class="c-keyword">float</span> <span class="c-var">hp</span> = <span class="c-fn">ReadMemory</span>&lt;<span class="c-keyword">float</span>&gt;(
   <span class="c-var">hProc</span>, <span class="c-bool">0x1A2B3C</span>
-); <span class="c-comment">// ✓ 100.0f</span></code></pre>
+);</code></pre>
       </div>
     </div>
   </section>
