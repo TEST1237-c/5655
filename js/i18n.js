@@ -106,6 +106,9 @@ const translations = {
     sp_empty2_desc: "Les sources seront publiées prochainement par Y8X.",
     sp_download: "Télécharger",
 
+    // Sources descriptions
+    src_combat_master_desc: "Base Combat Master pas encore finie, des mises à jour arriveront plus tard.",
+
     // Lang modal
     lang_title: "Choisis ta langue",
     lang_subtitle: "Sélectionne la langue d'affichage du site",
@@ -207,6 +210,9 @@ const translations = {
     sp_empty2_desc: "Sources will be published soon by Y8X.",
     sp_download: "Download",
 
+    // Sources descriptions
+    src_combat_master_desc: "Combat Master base, not finished yet — updates will come later.",
+
     lang_title: "Choose your language",
     lang_subtitle: "Select the display language for the site",
   },
@@ -306,6 +312,9 @@ const translations = {
     sp_empty2_title: "Sin fuentes por ahora",
     sp_empty2_desc: "Las fuentes serán publicadas próximamente por Y8X.",
     sp_download: "Descargar",
+
+    // Sources descriptions
+    src_combat_master_desc: "Base Combat Master aún sin terminar, habrá actualizaciones más adelante.",
 
     lang_title: "Elige tu idioma",
     lang_subtitle: "Selecciona el idioma de visualización del sitio",
