@@ -1,220 +1,147 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sources — Y8X Source</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/sources.css" />
-  <link rel="stylesheet" href="css/i18n.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-</head>
-<body>
+// ========================
+// Y8X SOURCE — SOURCES PAGE
+// ========================
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="nav-logo">
-        <span class="logo-bracket">&lt;</span>Y8X<span class="logo-accent"> Source</span><span class="logo-bracket">/&gt;</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html" class="nav-link" data-i18n="nav_home">Accueil</a></li>
-        <li><a href="sources.html" class="nav-link active" data-i18n="nav_sources">Sources</a></li>
-        <li><a href="index.html#categories" class="nav-link" data-i18n="nav_categories">Catégories</a></li>
-        <li><a href="index.html#apropos" class="nav-link" data-i18n="nav_about">À propos</a></li>
-      </ul>
-      <div class="nav-actions">
-        <!-- Lang switcher -->
-        <div class="lang-switcher">
-          <button id="langBtn">🇫🇷 FR <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
-          <div id="langDropdown">
-            <button class="lang-option" data-lang="fr">
-              <span class="lang-flag">🇫🇷</span> Français
-              <svg class="lang-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </button>
-            <button class="lang-option" data-lang="en">
-              <span class="lang-flag">🇬🇧</span> English
-              <svg class="lang-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </button>
-            <button class="lang-option" data-lang="es">
-              <span class="lang-flag">🇪🇸</span> Español
-              <svg class="lang-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </button>
-          </div>
-        </div>
-      </div>
-      <button class="nav-toggle" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+const cards = Array.from(document.querySelectorAll('#sourcesGrid .source-card'));
+const searchInput = document.getElementById('searchInput');
+const sortSelect  = document.getElementById('sortSelect');
+const filterPills = document.querySelectorAll('.filter-pill');
+const langPills   = document.querySelectorAll('.lang-pill');
+const resultsCount = document.getElementById('resultsCount');
+const emptyState  = document.getElementById('emptyState');
+const viewGrid    = document.getElementById('viewGrid');
+const viewList    = document.getElementById('viewList');
+const grid        = document.getElementById('sourcesGrid');
+const resetBtn    = document.getElementById('resetFilters');
 
-  <!-- PAGE HEADER -->
-  <div class="page-hero">
-    <div class="hero-bg">
-      <div class="hero-grid"></div>
-      <div class="hero-glow glow-1"></div>
-      <div class="hero-glow glow-2"></div>
-    </div>
-    <div class="container">
-      <div class="page-hero-inner">
-        <div class="page-hero-text">
-          <div class="hero-badge">
-            <span class="badge-dot"></span>
-            <span data-i18n="sp_badge">Toutes les sources</span>
-          </div>
-          <h1 class="page-title" data-i18n="sp_title">Sources &amp; Ressources</h1>
-          <p class="page-subtitle" data-i18n="sp_subtitle">Collection de codes, scripts et ressources sélectionnés par Y8X. Télécharge librement.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+let activeFilter = 'all';
+let activeLang   = 'all';
+let searchQuery  = '';
+let sortMode     = 'recent';
 
-  <!-- FILTERS & SEARCH -->
-  <div class="filters-bar">
-    <div class="container">
-      <div class="filters-inner">
-        <div class="search-box">
-          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input type="text" id="searchInput" data-i18n="sp_search" placeholder="Rechercher une source..." class="search-input" />
-          <kbd class="search-kbd">ESC</kbd>
-        </div>
-        <div class="sort-group">
-          <select id="sortSelect" class="filter-select">
-            <option value="recent" data-i18n="sp_sort_recent">Plus récent</option>
-            <option value="popular" data-i18n="sp_sort_popular">Plus téléchargé</option>
-            <option value="starred" data-i18n="sp_sort_starred">Mieux noté</option>
-            <option value="name" data-i18n="sp_sort_name">Nom A→Z</option>
-          </select>
-        </div>
-      </div>
+// ---- Filter & sort ----
+function applyFilters() {
+  let visible = cards.filter(card => {
+    const matchCat  = activeFilter === 'all' || card.dataset.cat  === activeFilter;
+    const matchLang = activeLang   === 'all' || card.dataset.lang === activeLang;
+    const q = searchQuery;
+    const name = card.dataset.name.toLowerCase();
+    const desc = card.querySelector('.source-desc')?.textContent.toLowerCase() || '';
+    const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent.toLowerCase()).join(' ');
+    const matchQ = !q || name.includes(q) || desc.includes(q) || tags.includes(q);
+    return matchCat && matchLang && matchQ;
+  });
 
-      <!-- Category filters -->
-      <div class="filter-pills" id="filterPills">
-        <button class="filter-pill active" data-filter="all" data-i18n="sp_filter_all">Tout</button>
-        <button class="filter-pill" data-filter="web" data-i18n="sp_filter_web">🌐 Web</button>
-        <button class="filter-pill" data-filter="bot" data-i18n="sp_filter_bot">🤖 Bots</button>
-        <button class="filter-pill" data-filter="game" data-i18n="sp_filter_game">🎮 Jeux</button>
-        <button class="filter-pill" data-filter="tool" data-i18n="sp_filter_tool">🛠️ Outils</button>
-        <button class="filter-pill" data-filter="ui" data-i18n="sp_filter_ui">🎨 UI/Design</button>
-      </div>
+  if (sortMode === 'popular') visible.sort((a, b) => +b.dataset.downloads - +a.dataset.downloads);
+  else if (sortMode === 'starred') visible.sort((a, b) => +b.dataset.stars - +a.dataset.stars);
+  else if (sortMode === 'name')    visible.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name));
 
-      <!-- Lang filters -->
-      <div class="lang-pills" id="langPills">
-        <button class="lang-pill active" data-lang="all" data-i18n="sp_lang_all">Tous les langages</button>
-        <button class="lang-pill" data-lang="js">JS</button>
-        <button class="lang-pill" data-lang="py">Python</button>
-        <button class="lang-pill" data-lang="cs">C#</button>
-        <button class="lang-pill" data-lang="ts">TypeScript</button>
-        <button class="lang-pill" data-lang="lua">Lua</button>
-        <button class="lang-pill" data-lang="css">CSS</button>
-        <button class="lang-pill" data-lang="cpp">C++</button>
-      </div>
-    </div>
-  </div>
+  cards.forEach(c => { c.style.display = 'none'; });
+  visible.forEach(c => { c.style.display = ''; grid.appendChild(c); });
 
-  <!-- SOURCES GRID -->
-  <main class="sources-main">
-    <div class="container">
+  // Translated result count
+  const n = visible.length;
+  if (typeof t === 'function') {
+    // Use i18n if available
+    const lang = getLang ? getLang() : 'fr';
+    const labels = {
+      fr: `${n} source${n !== 1 ? 's' : ''} trouvée${n !== 1 ? 's' : ''}`,
+      en: `${n} source${n !== 1 ? 's' : ''} found`,
+      es: `${n} fuente${n !== 1 ? 's' : ''} encontrada${n !== 1 ? 's' : ''}`,
+    };
+    resultsCount.textContent = labels[lang] || labels.fr;
+  } else {
+    resultsCount.textContent = `${n} source${n !== 1 ? 's' : ''} trouvée${n !== 1 ? 's' : ''}`;
+  }
 
-      <div class="results-bar">
-        <span id="resultsCount" class="results-count">0</span>
-        <div class="view-toggle">
-          <button class="view-btn active" id="viewGrid" title="Grille">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-          </button>
-          <button class="view-btn" id="viewList" title="Liste">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-          </button>
-        </div>
-      </div>
+  // Show/hide empty state
+  if (n === 0) {
+    emptyState.style.display = 'block';
+    // Pick the right empty message (no results vs no sources at all)
+    const hasCards = cards.length > 0;
+    const h3 = emptyState.querySelector('h3');
+    const p  = emptyState.querySelector('p');
+    if (h3) h3.dataset.i18n = hasCards ? 'sp_empty_title' : 'sp_empty2_title';
+    if (p)  p.dataset.i18n  = hasCards ? 'sp_empty_desc'  : 'sp_empty2_desc';
+    if (typeof applyTranslations === 'function') applyTranslations();
+  } else {
+    emptyState.style.display = 'none';
+  }
+}
 
-      <div class="sources-grid" id="sourcesGrid">
+// ---- Category pills ----
+filterPills.forEach(pill => {
+  pill.addEventListener('click', () => {
+    filterPills.forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    activeFilter = pill.dataset.filter;
+    applyFilters();
+  });
+});
 
-        <!-- Combat Master Base -->
-        <article class="source-card" data-cat="game" data-lang="cpp" data-downloads="0" data-stars="0" data-name="Combat Master Base">
-          <div class="source-header">
-            <div class="source-lang cpp">C++</div>
-            <div class="source-meta">
-              <span class="source-date" data-i18n="src_date_today">Aujourd'hui</span>
-            </div>
-          </div>
-          <h3 class="source-title">Combat Master Base</h3>
-          <p class="source-desc" data-i18n="src_combat_master_desc">Base Combat Master pas encore finie, des mises à jour arriveront plus tard.</p>
-          <div class="source-tags">
-            <span class="tag">C++</span>
-            <span class="tag">Game</span>
-            <span class="tag">Combat Master</span>
-          </div>
-          <div class="source-footer">
-            <div class="source-stats"></div>
-            <a href="https://pixeldrain.com/u/iqvGMkHk" target="_blank" class="btn-download">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Télécharger
-            </a>
-          </div>
-        </article>
+// ---- Language pills (source filter, not UI lang) ----
+langPills.forEach(pill => {
+  pill.addEventListener('click', () => {
+    langPills.forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    activeLang = pill.dataset.lang;
+    applyFilters();
+  });
+});
 
-      </div>
+// ---- Search ----
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    searchQuery = searchInput.value.toLowerCase().trim();
+    applyFilters();
+  });
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      searchQuery = '';
+      applyFilters();
+    }
+  });
+}
 
-      <!-- EMPTY STATE -->
-      <div class="empty-state" id="emptyState" style="display:none">
-        <div class="empty-icon">📂</div>
-        <h3 data-i18n="sp_empty2_title">Aucune source pour le moment</h3>
-        <p data-i18n="sp_empty2_desc">Les sources seront publiées prochainement par Y8X.</p>
-      </div>
+// ---- Sort ----
+if (sortSelect) {
+  sortSelect.addEventListener('change', () => {
+    sortMode = sortSelect.value;
+    applyFilters();
+  });
+}
 
-    </div>
-  </main>
+// ---- View toggle ----
+if (viewGrid) viewGrid.addEventListener('click', () => {
+  viewGrid.classList.add('active');
+  viewList.classList.remove('active');
+  grid.classList.remove('list-view');
+});
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a href="index.html" class="nav-logo">
-            <span class="logo-bracket">&lt;</span>Y8X<span class="logo-accent"> Source</span><span class="logo-bracket">/&gt;</span>
-          </a>
-          <p data-i18n="footer_desc">La plateforme pour découvrir des sources de code sélectionnées par Y8X.</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-col">
-            <h4 data-i18n="footer_nav">Navigation</h4>
-            <ul>
-              <li><a href="index.html" data-i18n="footer_home">Accueil</a></li>
-              <li><a href="sources.html" data-i18n="footer_sources">Sources</a></li>
-              <li><a href="index.html#categories" data-i18n="footer_categories">Catégories</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4 data-i18n="footer_community">Communauté</h4>
-            <ul>
-              <li><a href="#" data-i18n="footer_discord">Discord</a></li>
-              <li><a href="#" data-i18n="footer_forum">Forum</a></li>
-              <li><a href="#" data-i18n="footer_contact">Contact</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4 data-i18n="footer_legal">Légal</h4>
-            <ul>
-              <li><a href="#" data-i18n="footer_tos">CGU</a></li>
-              <li><a href="#" data-i18n="footer_privacy">Confidentialité</a></li>
-              <li><a href="#" data-i18n="footer_cookies">Cookies</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p data-i18n="footer_copy">© 2026 Y8X Source — Tous droits réservés</p>
-        <p data-i18n="footer_made">Fait avec ❤️ par Y8X</p>
-      </div>
-    </div>
-  </footer>
+if (viewList) viewList.addEventListener('click', () => {
+  viewList.classList.add('active');
+  viewGrid.classList.remove('active');
+  grid.classList.add('list-view');
+});
 
-  <script src="js/protect.js"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/sources.js"></script>
-</body>
-</html>
+// ---- Reset button ----
+if (resetBtn) {
+  resetBtn.addEventListener('click', () => {
+    if (searchInput) { searchInput.value = ''; }
+    searchQuery  = '';
+    activeFilter = 'all';
+    activeLang   = 'all';
+    if (sortSelect) sortSelect.value = 'recent';
+    sortMode = 'recent';
+    filterPills.forEach(p => p.classList.toggle('active', p.dataset.filter === 'all'));
+    langPills.forEach(p => p.classList.toggle('active', p.dataset.lang === 'all'));
+    applyFilters();
+  });
+}
+
+// Re-run filters when language changes so the result label updates
+document.addEventListener('y8x-lang-changed', applyFilters);
+
+// ---- Initial render ----
+applyFilters();
