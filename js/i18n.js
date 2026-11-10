@@ -108,6 +108,7 @@ const translations = {
 
     // Sources descriptions
     src_combat_master_desc: "Base Combat Master pas encore finie, des mises à jour arriveront plus tard.",
+    src_il2cpp_dumper_desc: "IL2CPP Dumper pour Combat Master — extrait les symboles, classes et méthodes du jeu.",
     src_date_today: "Aujourd'hui",
 
     // Lang modal
@@ -218,6 +219,7 @@ const translations = {
 
     // Sources descriptions
     src_combat_master_desc: "Combat Master base, not finished yet — updates will come later.",
+    src_il2cpp_dumper_desc: "IL2CPP Dumper for Combat Master — extracts symbols, classes and methods from the game.",
     src_date_today: "Today",
 
     lang_title: "Choose your language",
@@ -327,6 +329,7 @@ const translations = {
 
     // Sources descriptions
     src_combat_master_desc: "Base Combat Master aún sin terminar, habrá actualizaciones más adelante.",
+    src_il2cpp_dumper_desc: "IL2CPP Dumper para Combat Master — extrae símbolos, clases y métodos del juego.",
     src_date_today: "Hoy",
 
     lang_title: "Elige tu idioma",
