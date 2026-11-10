@@ -108,6 +108,7 @@ const translations = {
 
     // Sources descriptions
     src_combat_master_desc: "Base Combat Master pas encore finie, des mises à jour arriveront plus tard.",
+    src_date_today: "Aujourd'hui",
 
     // Lang modal
     lang_title: "Choisis ta langue",
@@ -212,6 +213,7 @@ const translations = {
 
     // Sources descriptions
     src_combat_master_desc: "Combat Master base, not finished yet — updates will come later.",
+    src_date_today: "Today",
 
     lang_title: "Choose your language",
     lang_subtitle: "Select the display language for the site",
@@ -315,6 +317,7 @@ const translations = {
 
     // Sources descriptions
     src_combat_master_desc: "Base Combat Master aún sin terminar, habrá actualizaciones más adelante.",
+    src_date_today: "Hoy",
 
     lang_title: "Elige tu idioma",
     lang_subtitle: "Selecciona el idioma de visualización del sitio",
