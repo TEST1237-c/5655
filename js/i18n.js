@@ -113,6 +113,11 @@ const translations = {
     // Lang modal
     lang_title: "Choisis ta langue",
     lang_subtitle: "Sélectionne la langue d'affichage du site",
+
+    // Discord banner
+    discord_banner_title: "Rejoins le serveur Discord",
+    discord_banner_sub: "Reste au courant des nouvelles sources et mises à jour Y8X",
+    discord_banner_btn: "Rejoindre",
   },
 
   en: {
@@ -217,6 +222,11 @@ const translations = {
 
     lang_title: "Choose your language",
     lang_subtitle: "Select the display language for the site",
+
+    // Discord banner
+    discord_banner_title: "Join the Discord server",
+    discord_banner_sub: "Stay up to date with new sources and Y8X updates",
+    discord_banner_btn: "Join",
   },
 
   es: {
@@ -321,6 +331,11 @@ const translations = {
 
     lang_title: "Elige tu idioma",
     lang_subtitle: "Selecciona el idioma de visualización del sitio",
+
+    // Discord banner
+    discord_banner_title: "Únete al servidor de Discord",
+    discord_banner_sub: "Mantente al tanto de las nuevas fuentes y actualizaciones de Y8X",
+    discord_banner_btn: "Unirse",
   }
 };
 
