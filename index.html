@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Y8X Source</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/i18n.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ======================== LANGUAGE MODAL ======================== -->
+  <div class="lang-modal-overlay" id="langModal">
+    <div class="lang-modal">
+      <div class="lang-modal-logo">
+        <span class="logo-bracket">&lt;</span>Y8X<span class="logo-accent"> Source</span><span class="logo-bracket">/&gt;</span>
+      </div>
+      <h2 data-i18n="lang_title">Choisis ta langue</h2>
+      <p data-i18n="lang_subtitle">Sélectionne la langue d'affichage du site</p>
+      <div class="lang-modal-options">
+
+        <button class="lang-modal-option" data-lang="fr">
+          <span class="lang-modal-flag">🇫🇷</span>
+          <div class="lang-modal-info">
+            <span class="lang-modal-name">Français</span>
+            <span class="lang-modal-native">French</span>
+          </div>
+          <svg class="lang-modal-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <button class="lang-modal-option" data-lang="en">
+          <span class="lang-modal-flag">🇬🇧</span>
+          <div class="lang-modal-info">
+            <span class="lang-modal-name">English</span>
+            <span class="lang-modal-native">Anglais</span>
+          </div>
+          <svg class="lang-modal-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <button class="lang-modal-option" data-lang="es">
+          <span class="lang-modal-flag">🇪🇸</span>
+          <div class="lang-modal-info">
+            <span class="lang-modal-name">Español</span>
+            <span class="lang-modal-native">Espagnol</span>
+          </div>
+          <svg class="lang-modal-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>Y8X<span class="logo-accent"> Source</span><span class="logo-bracket">/&gt;</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active" data-i18n="nav_home">Accueil</a></li>
+        <li><a href="sources.html" class="nav-link" data-i18n="nav_sources">Sources</a></li>
+        <li><a href="#categories" class="nav-link" data-i18n="nav_categories">Catégories</a></li>
+        <li><a href="#apropos" class="nav-link" data-i18n="nav_about">À propos</a></li>
+      </ul>
+      <div class="nav-actions">
+        <!-- Lang switcher -->
+        <div class="lang-switcher">
+          <button id="langBtn">🇫🇷 FR <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div id="langDropdown">
+            <button class="lang-option" data-lang="fr">
+              <span class="lang-flag">🇫🇷</span> Français
+              <svg class="lang-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+            <button class="lang-option" data-lang="en">
+              <span class="lang-flag">🇬🇧</span> English
+              <svg class="lang-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+            <button class="lang-option" data-lang="es">
+              <span class="lang-flag">🇪🇸</span> Español
+              <svg class="lang-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="accueil">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-glow glow-1"></div>
+      <div class="hero-glow glow-2"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span data-i18n="hero_badge">Plateforme open source</span>
+      </div>
+      <h1 class="hero-title">
+        <span data-i18n="hero_title_1">La référence pour</span><br />
+        <span class="gradient-text" data-i18n="hero_title_2">vos sources &amp; ressources</span>
+      </h1>
+      <p class="hero-subtitle" data-i18n="hero_subtitle">
+        Y8X Source est la plateforme pour découvrir et télécharger des sources de code, scripts, et ressources techniques.
+      </p>
+      <div class="hero-actions">
+        <a href="sources.html" class="btn-primary btn-lg">
+          <span data-i18n="hero_btn_explore">Explorer les sources</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#apropos" class="btn-ghost btn-lg" data-i18n="hero_btn_about">En savoir plus</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number" data-count="0">0</span>
+          <span class="stat-label" data-i18n="stat_sources">Sources publiées</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number" data-count="0">0</span>
+          <span class="stat-label" data-i18n="stat_members">Membres</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number" data-count="0">0</span>
+          <span class="stat-label" data-i18n="stat_categories">Catégories</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-code">
+      <div class="code-window">
+        <div class="code-header">
+          <div class="code-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="code-filename">memory_reader.cpp</span>
+        </div>
+        <pre class="code-body"><code><span class="c-comment">// Y8X Source — Memory Reader</span>
+<span class="c-keyword">#include</span> <span class="c-str">&lt;Windows.h&gt;</span>
+<span class="c-keyword">#include</span> <span class="c-str">&lt;iostream&gt;</span>
+
+<span class="c-keyword">template</span>&lt;<span class="c-keyword">typename</span> <span class="c-var">T</span>&gt;
+<span class="c-var">T</span> <span class="c-fn">ReadMemory</span>(HANDLE <span class="c-var">proc</span>, uintptr_t <span class="c-var">addr</span>) {
+  <span class="c-var">T</span> <span class="c-var">val</span>{};
+  ReadProcessMemory(<span class="c-var">proc</span>,
+    (<span class="c-keyword">LPCVOID</span>)<span class="c-var">addr</span>,
+    &amp;<span class="c-var">val</span>, <span class="c-keyword">sizeof</span>(<span class="c-var">T</span>), <span class="c-keyword">nullptr</span>);
+  <span class="c-keyword">return</span> <span class="c-var">val</span>;
+}
+
+<span class="c-comment">// Lire un float à l'adresse 0x1A2B3C</span>
+<span class="c-keyword">float</span> <span class="c-var">hp</span> = <span class="c-fn">ReadMemory</span>&lt;<span class="c-keyword">float</span>&gt;(
+  <span class="c-var">hProc</span>, <span class="c-bool">0x1A2B3C</span>
+); <span class="c-comment">// ✓ 100.0f</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="categories-section" id="categories">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="cat_tag">Parcourir</span>
+        <h2 class="section-title" data-i18n="cat_title">Catégories populaires</h2>
+        <p class="section-subtitle" data-i18n="cat_subtitle">Retrouve les sources classées par thématique</p>
+      </div>
+      <div class="categories-grid">
+        <a href="#" class="category-card">
+          <div class="cat-icon">🌐</div>
+          <h3>Web</h3>
+          <p data-i18n="cat_web_desc">HTML, CSS, JS, frameworks</p>
+          <span class="cat-count">0 sources</span>
+        </a>
+        <a href="#" class="category-card">
+          <div class="cat-icon">🤖</div>
+          <h3 data-i18n="cat_bot">Bots &amp; Scripts</h3>
+          <p data-i18n="cat_bot_desc">Automatisation, bots Discord, outils</p>
+          <span class="cat-count">0 sources</span>
+        </a>
+        <a href="#" class="category-card">
+          <div class="cat-icon">🎮</div>
+          <h3 data-i18n="cat_game">Jeux</h3>
+          <p data-i18n="cat_game_desc">Mods, cheats, outils gaming</p>
+          <span class="cat-count">0 sources</span>
+        </a>
+        <a href="#" class="category-card">
+          <div class="cat-icon">📱</div>
+          <h3>Mobile</h3>
+          <p data-i18n="cat_mobile_desc">Android, iOS, React Native</p>
+          <span class="cat-count">0 sources</span>
+        </a>
+        <a href="sources.html" class="category-card featured">
+          <div class="cat-icon">✨</div>
+          <h3 data-i18n="cat_all">Voir tout</h3>
+          <p data-i18n="cat_all_desc">Toutes les catégories disponibles</p>
+          <span class="cat-count">0 sources</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LATEST SOURCES -->
+  <section class="sources-section" id="sources">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="src_tag">Récent</span>
+        <h2 class="section-title" data-i18n="src_title">Dernières sources publiées</h2>
+        <a href="sources.html" class="section-link" data-i18n="src_view_all">Voir tout →</a>
+      </div>
+      <div class="sources-grid">
+        <!-- Sources ajoutées ici -->
+      </div>
+
+      <!-- Empty state -->
+      <div style="text-align:center;padding:60px 20px 20px;">
+        <div style="font-size:40px;margin-bottom:14px;">📂</div>
+        <h3 style="font-size:17px;font-weight:700;margin-bottom:8px;" data-i18n="src_empty_title">Aucune source pour le moment</h3>
+        <p style="font-size:14px;color:var(--text-2);margin-bottom:22px;" data-i18n="src_empty_desc">Les sources seront publiées prochainement par Y8X.</p>
+        <a href="sources.html" class="btn-primary" data-i18n="src_empty_btn">Voir la page des sources</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / CTA -->
+  <section class="cta-section" id="apropos">
+    <div class="container">
+      <div class="cta-box">
+        <div class="cta-content">
+          <span class="section-tag" data-i18n="about_tag">À propos</span>
+          <h2 class="cta-title" data-i18n="about_title">Découvre les meilleures sources</h2>
+          <p class="cta-text" data-i18n="about_text">
+            Y8X Source est une collection soigneusement sélectionnée de codes, scripts
+            et ressources techniques. Toutes les sources sont vérifiées et publiées par Y8X.
+          </p>
+          <ul class="cta-features">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="about_feat1">Sources vérifiées et de qualité</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="about_feat2">Mises à jour régulières</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="about_feat3">Téléchargement gratuit et direct</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="about_feat4">Classées par catégorie et langage</span>
+            </li>
+          </ul>
+          <div class="cta-actions">
+            <a href="sources.html" class="btn-primary btn-lg" data-i18n="about_btn1">Voir toutes les sources</a>
+            <a href="#categories" class="btn-ghost btn-lg" data-i18n="about_btn2">Parcourir les catégories</a>
+          </div>
+        </div>
+        <div class="cta-visual">
+          <div class="cta-card-stack">
+            <div class="mini-card mc-1">
+              <span class="mc-icon">✅</span>
+              <div>
+                <div class="mc-title" data-i18n="mc1_title">Sources vérifiées</div>
+                <div class="mc-sub" data-i18n="mc1_sub">Par Y8X uniquement</div>
+              </div>
+            </div>
+            <div class="mini-card mc-2">
+              <span class="mc-icon">🔥</span>
+              <div>
+                <div class="mc-title" data-i18n="mc2_title">Source tendance</div>
+                <div class="mc-sub" data-i18n="mc2_sub">+142 téléchargements</div>
+              </div>
+            </div>
+            <div class="mini-card mc-3">
+              <span class="mc-icon">⬇️</span>
+              <div>
+                <div class="mc-title" data-i18n="mc3_title">Téléchargement libre</div>
+                <div class="mc-sub" data-i18n="mc3_sub">Gratuit, sans compte</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <span class="logo-bracket">&lt;</span>Y8X<span class="logo-accent"> Source</span><span class="logo-bracket">/&gt;</span>
+          </a>
+          <p data-i18n="footer_desc">La plateforme pour découvrir des sources de code sélectionnées par Y8X.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4 data-i18n="footer_nav">Navigation</h4>
+            <ul>
+              <li><a href="index.html" data-i18n="footer_home">Accueil</a></li>
+              <li><a href="sources.html" data-i18n="footer_sources">Sources</a></li>
+              <li><a href="#categories" data-i18n="footer_categories">Catégories</a></li>
+              <li><a href="#" data-i18n="footer_top">Top sources</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer_community">Communauté</h4>
+            <ul>
+              <li><a href="#" data-i18n="footer_discord">Discord</a></li>
+              <li><a href="#" data-i18n="footer_forum">Forum</a></li>
+              <li><a href="#" data-i18n="footer_contribute">Contribuer</a></li>
+              <li><a href="#" data-i18n="footer_report">Signaler</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer_legal">Légal</h4>
+            <ul>
+              <li><a href="#" data-i18n="footer_tos">CGU</a></li>
+              <li><a href="#" data-i18n="footer_privacy">Confidentialité</a></li>
+              <li><a href="#" data-i18n="footer_cookies">Cookies</a></li>
+              <li><a href="#" data-i18n="footer_contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer_copy">© 2026 Y8X Source — Tous droits réservés</p>
+        <p data-i18n="footer_made">Fait avec ❤️ par la communauté Y8X</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
